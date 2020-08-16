@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Solicitudes</title>
+</head>
+<body>
+<form id="form">
+    <label>Codigo</label><br>
+    <input type="text" id="codigo" name="codigo"><br><br>
+    <label>Descripcion</label><br><br>
+    <input type="text" id="descripcion" name="descripcion"><br><br>
+    <label>Resumen</label><br><br>
+    <input type="text" id="resumen" name="resumen"><br><br>
+    <label>numero</label><br><br>
+    <input type="text" id="numero" name="numero"><br><br>
+    <label>Id Empleado</label><br><br>
+    <select id="empleados" class="form-control"></select>
+    <input type="submit">
+</form>
+</body>
+<script>
+$("form").submit(function(event) {
+       event.preventDefault();
+       var codigo=$("#codigo").val();
+       var descripcion=$("#descripcion").val();
+       var resumen=$("#resumen").val();
+       var numero=$("#numero").val();
+       var id_empleado=$("#empleados").val();
+       $.ajax({
+          url: "http://localhost:8080/api/request",
+          data:JSON.stringify({
+               codigo:codigo,
+               descripcion:descripcion,
+               resumen:resumen,
+               number:numero,
+               idEmpleado:id_empleado
+          }),
+          method:"put",
+          headers: {
+             'Content-Type' : 'application/json'
+           }
+        }).done(function(data) {
+          console.log(data);
+        });
+    })
+  listarEmpleados();
+  function listarEmpleados(){
+       console.log("dfdsfdsf");
+       $.ajax({
+          url: "http://localhost:8080/api/employee",
+          method:"get",
+          headers: {
+             'Content-Type' : 'application/json'
+           }
+        }).done(function(data) {
+          var empleados = $("#empleados");
+          data.forEach((empl)=>{
+              empleados.append('<option value="' + empl.id + '">' + empl.nombre + '</option>')
+          });
+        });
+  }
+
+</script>
+</html>

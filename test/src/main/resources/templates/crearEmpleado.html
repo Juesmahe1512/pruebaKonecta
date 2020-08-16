@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form id="form">
+    <label>fecha ingreso</label><br>
+    <input type="date" id="fechaIngreso" name="fechaIngreso"><br>
+    <label>nombre</label><br><br>
+    <input type="text" id="nombre" name="nombre"><br><br>
+    <label>salario</label><br><br>
+    <input type="text" id="salario" name="salario"><br><br>
+    <input type="submit">
+</form>
+</body>
+<script>
+    $("form").submit(function(event) {
+       event.preventDefault();
+       var fechaIngreso=new Date($("#fechaIngreso").val());
+       var nombre=$("#nombre").val();
+       var salario=$("#salario").val();
+       console.log($( "#form" ).serialize());
+       console.log(Date.parse(fechaIngreso))
+       fechaIngreso.setDate(fechaIngreso.getDate() + 1);
+       $.ajax({
+          url: "http://localhost:8080/api/employee",
+          data:JSON.stringify({
+                "id": 20,
+                "fecha_ingreso": fechaIngreso.getTime(),
+                "nombre": nombre,
+                "salario": salario
+          }),
+          method:"put",
+          headers: {
+             'Content-Type' : 'application/json'
+           }
+        }).done(function(data) {
+          console.log(data);
+        });
+    })
+</script>
+</html>
