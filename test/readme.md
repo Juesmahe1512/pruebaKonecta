@@ -4,7 +4,7 @@ Prueba para ingresar y leer datos
 
 git clone https://github.com/Juesmahe1512/pruebaKonecta.git
 
-###Técnologias
+###Tecnologias
 
 Thymeleaf, Spring Boot, JPA, MySQL
 Maven.
